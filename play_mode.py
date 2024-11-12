@@ -4,6 +4,7 @@ from pico2d import *
 import game_framework
 
 import game_world
+
 from game_world import collide,handle_collisions
 from grass import Grass
 from boy import Boy
@@ -24,7 +25,6 @@ def handle_events():
 
 def init():
     global boy
-    global balls
 
     grass = Grass()
     game_world.add_object(grass, 0)
@@ -41,9 +41,20 @@ def init():
     balls = [Ball(random.randint(100, 1600 - 100), 60, 0) for _ in range(30)]
     game_world.add_objects(balls, 1)
 
+
+    #-----------------------------------
+
     game_world.add_collision_pair('boy:ball', boy, None)  # 보이를 한 번만 넣도록 만듦
     for ball in balls:
         game_world.add_collision_pair('boy:ball', None, ball)
+
+    for zombie in zombies:
+        game_world.add_collision_pair('ball:zombie', None, zombie)
+
+    game_world.add_collision_pair('boy:zombie', boy, None)  # 보이를 한 번만 넣도록 만듦
+    for zombie in zombies:
+        game_world.add_collision_pair('boy:zombie', None, zombie)
+
 
 
 def finish():

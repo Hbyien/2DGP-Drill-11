@@ -1,15 +1,13 @@
 world = [[] for _ in range(4)]
 
 collision_pairs={}
+
 def add_collision_pair(group,a,b):
     if group not in collision_pairs:
-        print(f'NEW group {group} added......')
         collision_pairs[group]=[ [] , [] ]
     if a:
-        print(f'group {group} : {a} added......')
         collision_pairs[group][0].append(a)
     if b:
-        print(f'group {group} : {b} added......')
         collision_pairs[group][1].append(b)
 
 

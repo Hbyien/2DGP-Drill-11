@@ -4,6 +4,7 @@ from pico2d import get_time, load_image, SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDL
     draw_rectangle
 
 from ball import Ball
+from zombie import Zombie
 import game_world
 import game_framework
 from state_machine import start_event, right_down, left_up, left_down, right_up, space_down, StateMachine, time_out
@@ -158,8 +159,9 @@ class Boy:
     def fire_ball(self):
         if self.ball_count > 0:
             self.ball_count -= 1
-            newball = Ball(self.x, self.y, self.face_dir*10)
-            game_world.add_object(newball)
+            ball = Ball(self.x, self.y, self.face_dir*10)
+            game_world.add_object(ball)
+            game_world.add_collision_pair('ball:zombie', ball, None)
 
     def get_bb(self):
         # fill here
@@ -172,4 +174,6 @@ class Boy:
         if group == 'boy:ball':
             self.ball_count +=1
             #game_world.remove_object(other)
+        if group == 'boy: zombie':
+            game_framework.quit()
         pass
